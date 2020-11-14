@@ -11,7 +11,17 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsSsn(string ssn)
         {
-            throw new NotImplementedException();
+            bool isCorrectFormat = true;
+            if (ssn.Contains("-"))
+            {
+                isCorrectFormat = ssn.IndexOf("-") == 3 && ssn.LastIndexOf("-") == 6;
+                ssn = ssn.Replace("-", "");
+            }
+            
+            bool isOnlyDigits = int.TryParse(ssn, out int x);
+            bool isCorrectNumDigits = ssn.Length == 9;
+
+            return isCorrectNumDigits && isOnlyDigits && isCorrectFormat;
         }
 
         /// <summary>
@@ -23,7 +33,7 @@ namespace BusinessLogic
         /// <returns></returns>
         public static bool IsWithinRange(int numToTest, int minValue, int maxValue)
         {
-            throw new NotImplementedException();
+            return numToTest <= maxValue && numToTest >= minValue;
         }
     }
 }
